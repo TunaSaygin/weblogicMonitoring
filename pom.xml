@@ -18,6 +18,13 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>ojdbc8</artifactId>
+            <scope>system</scope>
+            <version>1.0</version>
+            <systemPath>C:/oracle/OracleDB19.3/jdbc/lib/ojdbc8.jar</systemPath>
+        </dependency>
+        <dependency>
             <groupId>io.helidon.microprofile.bundles</groupId>
             <artifactId>helidon-microprofile-core</artifactId>
         </dependency>

@@ -22,22 +22,13 @@ public class ServerStatController {
     private String httpPort = "127.0.0.1";
     private String httpHost = "17001";
     //the cassandraDao variable
-    OracleDAO db;
+    static OracleDAO db = new OracleDAO();
     /**
      * this method will behave as a scheduler and every 5 min writes the server stats to the cassandra db
      */
     @PostConstruct
     public void init() {
         db = new OracleDAO();
-        Timer timer = new Timer();
-        TimerTask tt = new TimerTask() {
-            @Override
-            public void run() {
-                //TODO
-                //write the results to cassandra
-            }
-        };
-        timer.scheduleAtFixedRate(tt, 0, 300000); //time is in miliseconds
     }
     @GET
     public String listDomainServerStats(){
@@ -53,6 +44,7 @@ public class ServerStatController {
     public String getDomains(){
         String result = "";
         try {
+            if(db == null){return "NOBDCONNECTION404";}
             ResultSet rs = db.getSession().createStatement().executeQuery("select * from monitoring_domains");
             while(rs.next()){
                 result +=rs.getString("DomainName") + "\n";
