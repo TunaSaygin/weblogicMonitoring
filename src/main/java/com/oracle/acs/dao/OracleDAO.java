@@ -1,8 +1,6 @@
 package com.oracle.acs.dao;
 import java.sql.*;
 import jakarta.annotation.PostConstruct;
-import oracle.jdbc.driver.OracleDriver;
-import oracle.jdbc.*;
 import jakarta.inject.Singleton;
 
 @Singleton
