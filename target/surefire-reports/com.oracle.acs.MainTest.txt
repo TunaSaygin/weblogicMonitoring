@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.oracle.acs.MainTest
 -------------------------------------------------------------------------------
-Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.952 s - in com.oracle.acs.MainTest
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.837 s - in com.oracle.acs.MainTest

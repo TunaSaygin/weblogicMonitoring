@@ -1,6 +1,7 @@
 package com.oracle.acs.controller;
 
 import com.oracle.acs.dao.OracleDAO;
+import io.helidon.common.SerializationConfig;
 import jakarta.annotation.PostConstruct;
 import jakarta.inject.Singleton;
 import jakarta.ws.rs.GET;
@@ -9,8 +10,10 @@ import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Invocation;
 import jakarta.ws.rs.client.WebTarget;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Base64;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -28,7 +31,8 @@ public class ServerStatController {
      */
     @PostConstruct
     public void init() {
-        db = new OracleDAO();
+        //SerializationConfig.builder().filterPattern().onNoConfig(SerializationConfig.Action.CONFIGURE);
+        System.out.println("app is started");
     }
     @GET
     public String listDomainServerStats(){
@@ -42,13 +46,23 @@ public class ServerStatController {
     @Path("domains")
     @GET
     public String getDomains(){
-        String result = "";
+        String result = "first";
+        System.out.println("inside the method");
         try {
-            if(db == null){return "NOBDCONNECTION404";}
-            ResultSet rs = db.getSession().createStatement().executeQuery("select * from monitoring_domains");
-            while(rs.next()){
-                result +=rs.getString("DomainName") + "\n";
-            }
+
+            System.out.println("inside try statement");
+            Connection con = db.getSession();
+            System.out.println("after get session");
+            Statement sttmnt = con.createStatement();
+            String query = "select DomainName from monitoring_domains";
+            System.out.println("--------------------------------------");
+            ResultSet rs = sttmnt.executeQuery(query);
+            System.out.println("**************************");
+            //result = rs.getString("DomainName");
+            rs.next();
+            result = rs.getString("DomainName");
+            System.out.println(result);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
